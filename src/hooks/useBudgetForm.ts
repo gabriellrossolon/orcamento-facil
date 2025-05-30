@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { formatCpfOrCnpj, formatPhone } from "../utils/formatters";
+import type { BudgetItem } from "../models/BudgetItem";
+import { formatCoin, formatQuantity } from "../utils/formatters";
 
 export const useBudgetForm = () => {
-
   //DADOS EMPRESA
   const [companyName, setCompanyName] = useState<string>("");
   const [companyCpfOrCnpj, setCompanyCpfOrCnpj] = useState<string>("");
@@ -26,9 +27,32 @@ export const useBudgetForm = () => {
   const handleChangeClientCpfOrCnpj = (value: string) => {
     setClientCpfOrCnpj(formatCpfOrCnpj(value));
   };
-   const handleChangeClientPhone = (value: string) => {
+  const handleChangeClientPhone = (value: string) => {
     setClientPhone(formatPhone(value));
   };
+
+  //ITEMS PARA ORÇAMENTO
+  const [budgetItemName, setBudgetItemName] = useState<string>("");
+  const [budgetItemQuantity, setBudgetItemQuantity] = useState<string>("");
+  const [budgetItemPrice, setBudgetItemPrice] = useState<string>("");
+  const [budgetItems, setBudgetItems] = useState<BudgetItem[]>([]);
+  const handleBudgetItemPrice = (value: string) => {
+    setBudgetItemPrice(formatCoin(value));
+  };
+
+  const handleBudgetItemQuantity = (value: string) => {
+    setBudgetItemQuantity(formatQuantity(value));
+  };
+
+   const handleBudgetItems = (name: string, quantity: string, price: string) => {
+    const newItem: BudgetItem = {
+      nome: name,
+      quantidade: quantity,
+      preco: price,
+    }
+
+    setBudgetItems(prevItems => [...prevItems, newItem]);
+  }
 
   return {
     //Empresa
@@ -54,5 +78,15 @@ export const useBudgetForm = () => {
     setClientEmail,
     clientPhone,
     handleChangeClientPhone,
+
+    //Items para Orçamento
+    budgetItems,
+    handleBudgetItems,
+    budgetItemName,
+    setBudgetItemName,
+    budgetItemQuantity,
+    handleBudgetItemQuantity,
+    budgetItemPrice,
+    handleBudgetItemPrice
   };
 };

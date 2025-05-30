@@ -4,7 +4,6 @@ import { FaArrowRight } from "react-icons/fa";
 import { AnimatePresence } from "framer-motion";
 import BudgetForm from "./components/BudgetForm";
 import { useBudgetForm } from "./hooks/useBudgetForm";
-import type { BudgetItem } from "./models/BudgetItem";
 
 function App() {
   const [showOptions, setShowOptions] = useState<boolean>(false);
@@ -31,20 +30,6 @@ Dados do Cliente:
     );
   };
 
-  const [budgetItemName, setBudgetItemName] = useState<string> ("");
-  const [budgetItemQuantity, setBudgetItemQuantity] = useState<string> ("");
-  const [budgetItemPrice, setBudgetItemPrice] = useState<string> ("");
-  const [budgetItems, setBudgetItems] = useState<BudgetItem[]> ([]);
-  const handleBudgetItems = (name: string, quantity: string, price: string) => {
-    const newItem: BudgetItem = {
-      nome: name,
-      quantidade: quantity,
-      preco: price,
-    }
-
-    setBudgetItems(prevItems => [...prevItems, newItem]);
-  }
-
   const {
     companyName,
     setCompanyName,
@@ -67,6 +52,16 @@ Dados do Cliente:
     setClientEmail,
     clientPhone,
     handleChangeClientPhone,
+
+    //Items para Orçamento
+    budgetItems,
+    handleBudgetItems,
+    budgetItemName,
+    setBudgetItemName,
+    budgetItemQuantity,
+    handleBudgetItemQuantity,
+    budgetItemPrice,
+    handleBudgetItemPrice,
   } = useBudgetForm();
 
   return (
@@ -110,16 +105,14 @@ Dados do Cliente:
               clientPhone={clientPhone}
               handleClientPhone={handleChangeClientPhone}
               handleSubmit={handleSubmit}
-
               budgetItems={budgetItems}
               handleBudgetItems={handleBudgetItems}
-
               budgetItemName={budgetItemName}
               setBudgetItemName={setBudgetItemName}
               budgetItemQuantity={budgetItemQuantity}
-              setBudgetItemQuantity={setBudgetItemQuantity}
+              handleBudgetItemQuantity={handleBudgetItemQuantity}
               budgetItemPrice={budgetItemPrice}
-              setBudgetItemPrice={setBudgetItemPrice}
+              handleBudgetItemPrice={handleBudgetItemPrice}
             />
           </main>
         </div>

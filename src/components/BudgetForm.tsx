@@ -34,9 +34,9 @@ interface BudgetFormProps {
   budgetItemName: string;
   setBudgetItemName: (value: string) => void;
   budgetItemQuantity: string;
-  setBudgetItemQuantity: (value: string) => void;
+  handleBudgetItemQuantity: (value: string) => void;
   budgetItemPrice: string;
-  setBudgetItemPrice: (value: string) => void;
+  handleBudgetItemPrice: (value: string) => void;
 }
 
 const BudgetForm: React.FC<BudgetFormProps> = ({
@@ -70,9 +70,9 @@ const BudgetForm: React.FC<BudgetFormProps> = ({
   budgetItemName,
   setBudgetItemName,
   budgetItemQuantity,
-  setBudgetItemQuantity,
+  handleBudgetItemQuantity,
   budgetItemPrice,
-  setBudgetItemPrice,
+  handleBudgetItemPrice,
 }) => {
   return (
     <form
@@ -163,13 +163,13 @@ const BudgetForm: React.FC<BudgetFormProps> = ({
             placeholder="Quantidade"
             type="string"
             value={budgetItemQuantity}
-            handleChange={setBudgetItemQuantity}
+            handleChange={handleBudgetItemQuantity}
           />
           <InputField
             placeholder="Valor"
             type="string"
             value={budgetItemPrice}
-            handleChange={setBudgetItemPrice}
+            handleChange={handleBudgetItemPrice}
           />
         </div>
         <button
