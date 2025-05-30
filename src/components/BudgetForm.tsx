@@ -29,14 +29,14 @@ interface BudgetFormProps {
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 
   budgetItems: BudgetItem[];
-  handleBudgetItems: (name: string, quantity: number, price: number) => void;
+  handleBudgetItems: (name: string, quantity: string, price: string) => void;
 
   budgetItemName: string;
   setBudgetItemName: (value: string) => void;
-  budgetItemQuantity: number;
-  setBudgetItemNQuantity: (value: number) => void;
-  budgetItemPrice: number;
-  setBudgetItemPrice: (value: number) => void;
+  budgetItemQuantity: string;
+  setBudgetItemQuantity: (value: string) => void;
+  budgetItemPrice: string;
+  setBudgetItemPrice: (value: string) => void;
 }
 
 const BudgetForm: React.FC<BudgetFormProps> = ({
@@ -70,7 +70,7 @@ const BudgetForm: React.FC<BudgetFormProps> = ({
   budgetItemName,
   setBudgetItemName,
   budgetItemQuantity,
-  setBudgetItemNQuantity,
+  setBudgetItemQuantity,
   budgetItemPrice,
   setBudgetItemPrice,
 }) => {
@@ -153,33 +153,24 @@ const BudgetForm: React.FC<BudgetFormProps> = ({
       <div className="w-full flex flex-col items-start justify-center gap-2 rounded-md p-4 shadow-md shadow-black/40">
         <h3 className="text-gray-200 font-xl">Adicionar itens:</h3>
         <div className="w-full flex flex-col items-center justify-center gap-2">
-          <label className="w-full">
-            <input
-              type="text"
-              placeholder="Item"
-              value={budgetItemName}
-              onChange={(e) => setBudgetItemName(e.target.value)}
-              className="border-1 border-gray-100/20 rounded-md px-2 py-1 w-full text-gray-200"
-            />
-          </label>
-          <label className="w-full">
-            <input
-              type="number"
-              placeholder="Quantidade"
-              value={budgetItemQuantity}
-              onChange={(e) => setBudgetItemNQuantity(Number(e.target.value))}
-              className="border-1 border-gray-100/20 rounded-md px-2 py-1 w-full text-gray-200"
-            />
-          </label>
-          <label className="w-full">
-            <input
-              type="number"
-              placeholder="Preço"
-              value={budgetItemPrice}
-              onChange={(e) => setBudgetItemPrice(Number(e.target.value))}
-              className="border-1 border-gray-100/20 rounded-md px-2 py-1 w-full text-gray-200"
-            />
-          </label>
+          <InputField
+            placeholder="Item"
+            type="string"
+            value={budgetItemName}
+            handleChange={setBudgetItemName}
+          />
+          <InputField
+            placeholder="Quantidade"
+            type="string"
+            value={budgetItemQuantity}
+            handleChange={setBudgetItemQuantity}
+          />
+          <InputField
+            placeholder="Valor"
+            type="string"
+            value={budgetItemPrice}
+            handleChange={setBudgetItemPrice}
+          />
         </div>
         <button
           className="text-gray-200 px-8 py-1 border border-gray-100/20 rounded-full cursor-pointer bg-[#111111]"
@@ -198,6 +189,9 @@ const BudgetForm: React.FC<BudgetFormProps> = ({
             </p>
             <p className="py-1 px-2 text-gray-200 col-span-1 border-x-1 border-gray-100/20 text-center">
               Valor
+            </p>
+            <p className="py-1 px-2 text-gray-200 col-span-1 border-x-1 border-gray-100/20 text-center">
+              Excluir?
             </p>
           </div>
           <div className="w-full">

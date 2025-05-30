@@ -32,10 +32,10 @@ Dados do Cliente:
   };
 
   const [budgetItemName, setBudgetItemName] = useState<string> ("");
-  const [budgetItemQuantity, setBudgetItemQuantity] = useState<number> (0);
-  const [budgetItemPrice, setBudgetItemPrice] = useState<number> (0);
+  const [budgetItemQuantity, setBudgetItemQuantity] = useState<string> ("");
+  const [budgetItemPrice, setBudgetItemPrice] = useState<string> ("");
   const [budgetItems, setBudgetItems] = useState<BudgetItem[]> ([]);
-  const handleBudgetItems = (name: string, quantity: number, price: number) => {
+  const handleBudgetItems = (name: string, quantity: string, price: string) => {
     const newItem: BudgetItem = {
       nome: name,
       quantidade: quantity,
@@ -117,7 +117,7 @@ Dados do Cliente:
               budgetItemName={budgetItemName}
               setBudgetItemName={setBudgetItemName}
               budgetItemQuantity={budgetItemQuantity}
-              setBudgetItemNQuantity={setBudgetItemQuantity}
+              setBudgetItemQuantity={setBudgetItemQuantity}
               budgetItemPrice={budgetItemPrice}
               setBudgetItemPrice={setBudgetItemPrice}
             />

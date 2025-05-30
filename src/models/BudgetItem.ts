@@ -1,5 +1,5 @@
 export interface BudgetItem {
   nome: string;
-  quantidade: number;
-  preco: number;
+  quantidade: string;
+  preco: string;
 }

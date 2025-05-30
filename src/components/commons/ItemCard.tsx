@@ -2,8 +2,8 @@ import { FiTrash } from "react-icons/fi";
 
 interface ItemCardProps {
   name: string;
-  quantity: number;
-  value: number;
+  quantity: string;
+  value: string;
 }
 
 const ItemCard: React.FC<ItemCardProps> = ({ name, quantity, value }) => {
