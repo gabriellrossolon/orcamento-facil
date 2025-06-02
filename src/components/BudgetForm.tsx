@@ -3,6 +3,7 @@ import InputField from "./commons/InputField";
 import ItemCard from "./commons/ItemCard";
 import type { BudgetItem } from "../models/BudgetItem";
 
+
 interface BudgetFormProps {
   companyName: string;
   setCompanyName: (value: string) => void;
@@ -37,6 +38,10 @@ interface BudgetFormProps {
   handleBudgetItemQuantity: (value: string) => void;
   budgetItemPrice: string;
   handleBudgetItemPrice: (value: string) => void;
+  handleDeleteBudgetItem: (value: string) => void;
+
+  budgetValidity: string;
+  handleBudgetValidity: (value: string) => void;
 }
 
 const BudgetForm: React.FC<BudgetFormProps> = ({
@@ -73,6 +78,10 @@ const BudgetForm: React.FC<BudgetFormProps> = ({
   handleBudgetItemQuantity,
   budgetItemPrice,
   handleBudgetItemPrice,
+  handleDeleteBudgetItem,
+
+  budgetValidity,
+  handleBudgetValidity,
 }) => {
   return (
     <form
@@ -82,9 +91,9 @@ const BudgetForm: React.FC<BudgetFormProps> = ({
       <h2 className="text-gray-200 text-3xl font-semibold mb-6">
         Preencha todos os Campos
       </h2>
-      <div className="flex md:flex-row flex-col items-center justify-center gap-8 w-full">
-        <div className="flex flex-col items-start justify-center w-full gap-2">
-          <h3 className="text-gray-200 font-xl">Seus dados:</h3>
+      <div className="flex md:flex-row flex-col items-center justify-center gap-8 w-full"> 
+        <div className="flex flex-col items-start justify-center w-full gap-2"> {/* Dados da Empresa */}
+          <h3 className="text-gray-200 text-2xl">Seus dados:</h3>
           <InputField
             placeholder="Nome da empresa"
             type="text"
@@ -116,8 +125,8 @@ const BudgetForm: React.FC<BudgetFormProps> = ({
             handleChange={setCompanyAdress}
           />
         </div>
-        <div className="flex flex-col items-start justify-center w-full gap-2">
-          <h3 className="text-gray-200 font-xl">Dados do cliente:</h3>
+        <div className="flex flex-col items-start justify-center w-full gap-2"> {/* Dados do Cliente */}
+          <h3 className="text-gray-200 text-2xl">Dados do cliente:</h3>
           <InputField
             placeholder="Nome do cliente"
             type="text"
@@ -150,30 +159,33 @@ const BudgetForm: React.FC<BudgetFormProps> = ({
           />
         </div>
       </div>
-      <div className="w-full flex flex-col items-start justify-center gap-2 rounded-md p-4 shadow-md shadow-black/40">
-        <h3 className="text-gray-200 font-xl">Adicionar itens:</h3>
+      <div className="w-full flex flex-col items-start justify-center gap-2 rounded-md p-4 shadow-md shadow-black/40"> {/* Adicionar Itens */}
+        <h3 className="text-gray-200 text-2xl">Adicionar itens:</h3>
         <div className="w-full flex flex-col items-center justify-center gap-2">
           <InputField
-            placeholder="Item"
+            placeholder="Digite o nome do item"
             type="string"
             value={budgetItemName}
+            span="Item"
             handleChange={setBudgetItemName}
           />
           <InputField
-            placeholder="Quantidade"
+            placeholder="Digite a quantidade de itens"
             type="string"
             value={budgetItemQuantity}
+            span="Quantidade"
             handleChange={handleBudgetItemQuantity}
           />
           <InputField
-            placeholder="Valor"
+            placeholder="Digite o valor total dos itens"
             type="string"
             value={budgetItemPrice}
+            span="Preço"
             handleChange={handleBudgetItemPrice}
           />
         </div>
         <button
-          className="text-gray-200 px-8 py-1 border border-gray-100/20 rounded-full cursor-pointer bg-[#111111]"
+          className="text-gray-200 px-8 py-1 border border-gray-100/20 rounded-full cursor-pointer bg-[#111111] hover:bg-[#222222] transition-colors duration-300"
           type="button"
           onClick={() => handleBudgetItems(budgetItemName, budgetItemQuantity, budgetItemPrice)}
         >
@@ -201,9 +213,37 @@ const BudgetForm: React.FC<BudgetFormProps> = ({
                 name={item.nome}
                 quantity={item.quantidade}
                 value={item.preco}
+                onDelete={() => handleDeleteBudgetItem(item.id)}
               />
             ))}
           </div>
+        </div>
+      </div>
+      <div className="w-full flex flex-row items-baseline-last justify-between">
+        <label className="flex flex-col items-start justify-center w-full">
+          <span className="text-gray-200 text-xl">Validade do Orçamento:</span>
+          <input 
+            type="text" 
+            value={budgetValidity}
+            onChange={(e) => handleBudgetValidity(e.target.value)}
+            placeholder="dd/mm/yyyy"
+            className="border-1 border-gray-100/20 rounded-md px-2 py-1 w-full text-gray-200"/>
+        </label>
+        <div className="flex items-center justify-end gap-4 w-full">
+          <button 
+            className="border border-gray-100/20 px-2 py-1 rounded-md text-gray-200 font-semibold text-xl bg-[#111111]
+            cursor-pointer hover:bg-[#222222] transition-colors duration-300
+            "
+            >
+              Gerar PDF
+          </button>
+          <button 
+            className="border border-gray-100/20 px-2 py-1 rounded-md text-gray-200 font-semibold text-xl bg-[#111111]
+            cursor-pointer hover:bg-[#222222] transition-colors duration-300
+            "
+            >
+              Limpar Campos
+          </button>
         </div>
       </div>
       {/* <button type="submit">Submit</button> */}

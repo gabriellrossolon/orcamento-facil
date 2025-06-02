@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { formatCpfOrCnpj, formatPhone } from "../utils/formatters";
 import type { BudgetItem } from "../models/BudgetItem";
-import { formatCoin, formatQuantity } from "../utils/formatters";
+import { formatCoin, formatQuantity, formatDateBR } from "../utils/formatters";
 
 export const useBudgetForm = () => {
   //DADOS EMPRESA
@@ -44,14 +44,28 @@ export const useBudgetForm = () => {
     setBudgetItemQuantity(formatQuantity(value));
   };
 
-   const handleBudgetItems = (name: string, quantity: string, price: string) => {
+  const handleBudgetItems = (name: string, quantity: string, price: string) => {
     const newItem: BudgetItem = {
+      id: Date.now().toString(),
       nome: name,
       quantidade: quantity,
       preco: price,
-    }
+    };
 
-    setBudgetItems(prevItems => [...prevItems, newItem]);
+    setBudgetItemName("");
+    handleBudgetItemQuantity("");
+    handleBudgetItemPrice("");
+    setBudgetItems((prevItems) => [...prevItems, newItem]);
+  };
+
+  const handleDeleteBudgetItem = (id: string) => {
+    setBudgetItems((prevItems) => prevItems.filter((item) => item.id !== id));
+  };
+
+  //DEMAIS
+  const [budgetValidity, setBudgetValidity] = useState("");
+  const handleBudgetValidity = (value: string) => {
+    setBudgetValidity(formatDateBR(value));
   }
 
   return {
@@ -87,6 +101,11 @@ export const useBudgetForm = () => {
     budgetItemQuantity,
     handleBudgetItemQuantity,
     budgetItemPrice,
-    handleBudgetItemPrice
+    handleBudgetItemPrice,
+    handleDeleteBudgetItem,
+
+    //Demais
+    budgetValidity,
+    handleBudgetValidity
   };
 };

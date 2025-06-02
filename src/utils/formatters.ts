@@ -66,3 +66,15 @@ export const formatQuantity = (value: string | number): string => {
 
   return num < 10 ? `0${num}` : `${num}`;
 };
+
+export const formatDateBR = (value: string): string => {
+  // Remove tudo que não for dígito
+  const digits = value.replace(/\D/g, "").slice(0, 8); // Limita a 8 números
+
+  const parts = [];
+  if (digits.length >= 1) parts.push(digits.slice(0, 2));         // dia
+  if (digits.length >= 3) parts.push(digits.slice(2, 4));         // mês
+  if (digits.length >= 5) parts.push(digits.slice(4, 8));         // ano
+
+  return parts.join("/");
+};

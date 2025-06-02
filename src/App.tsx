@@ -62,6 +62,11 @@ Dados do Cliente:
     handleBudgetItemQuantity,
     budgetItemPrice,
     handleBudgetItemPrice,
+    handleDeleteBudgetItem,
+
+    //Demais
+    budgetValidity,
+    handleBudgetValidity
   } = useBudgetForm();
 
   return (
@@ -113,6 +118,9 @@ Dados do Cliente:
               handleBudgetItemQuantity={handleBudgetItemQuantity}
               budgetItemPrice={budgetItemPrice}
               handleBudgetItemPrice={handleBudgetItemPrice}
+              handleDeleteBudgetItem={handleDeleteBudgetItem}
+              budgetValidity={budgetValidity}
+              handleBudgetValidity={handleBudgetValidity}
             />
           </main>
         </div>
