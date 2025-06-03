@@ -45,6 +45,9 @@ export const useBudgetForm = () => {
   };
 
   const handleBudgetItems = (name: string, quantity: string, price: string) => {
+    if (name == null || name == "") return;
+    if (quantity == "00" || quantity == null) return;
+
     const newItem: BudgetItem = {
       id: Date.now().toString(),
       nome: name,
@@ -53,8 +56,8 @@ export const useBudgetForm = () => {
     };
 
     setBudgetItemName("");
-    handleBudgetItemQuantity("");
     handleBudgetItemPrice("");
+    handleBudgetItemQuantity("");
     setBudgetItems((prevItems) => [...prevItems, newItem]);
   };
 
@@ -66,7 +69,62 @@ export const useBudgetForm = () => {
   const [budgetValidity, setBudgetValidity] = useState("");
   const handleBudgetValidity = (value: string) => {
     setBudgetValidity(formatDateBR(value));
+  };
+
+  //BUTTONS
+
+  const clearForm = () => {
+    setCompanyName("");
+    handleChangeCompanyCpfOrCnpj("");
+    setCompanyAdress("");
+    setCompanyEmail("");
+    handleChangeCompanyPhone("");
+
+    setClientName("");
+    handleChangeClientCpfOrCnpj("");
+    setClientAdress("");
+    setClientEmail("");
+    handleChangeClientPhone("");
+
+    setBudgetItemName("");
+    handleBudgetItemQuantity("");
+    handleBudgetItemPrice("");
+    setBudgetItems([]);
+
+    handleBudgetValidity("");
+  };
+
+  const finalizeForm = () => {
+    saveBudgetData();
+
+    window.open("/finalized", "_blank");
+  };
+
+  //
+
+  const saveBudgetData = () => {
+    const budgetData = getBudgetData();
+    localStorage.setItem("budgetData", JSON.stringify(budgetData));
   }
+
+  const getBudgetData = () => ({
+    company: {
+      name: companyName,
+      cpfOrCnpj: companyCpfOrCnpj,
+      address: companyAdress,
+      email: companyEmail,
+      phone: companyPhone,
+    },
+    client: {
+      name: clientName,
+      cpfOrCnpj: clientCpfOrCnpj,
+      address: clientAdress,
+      email: clientEmail,
+      phone: clientPhone,
+    },
+    items: budgetItems,
+    validity: budgetValidity,
+  });
 
   return {
     //Empresa
@@ -106,6 +164,8 @@ export const useBudgetForm = () => {
 
     //Demais
     budgetValidity,
-    handleBudgetValidity
+    handleBudgetValidity,
+    clearForm,
+    finalizeForm,
   };
 };

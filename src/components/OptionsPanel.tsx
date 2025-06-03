@@ -1,11 +1,18 @@
 import { FaArrowLeft } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 interface OptionsPanelProps {
   handleShowOptions: () => void;
+  handleShowAbout: () => void;
 }
 
-const OptionsPanel: React.FC<OptionsPanelProps> = ({ handleShowOptions }) => {
+const OptionsPanel: React.FC<OptionsPanelProps> = ({
+  handleShowOptions,
+  handleShowAbout,
+}) => {
+  const navigate = useNavigate();
+
   return (
     <motion.div
       className="fixed left-0 top-0 h-screen z-50"
@@ -24,14 +31,26 @@ const OptionsPanel: React.FC<OptionsPanelProps> = ({ handleShowOptions }) => {
             </strong>
           </h1>
           <div className="flex flex-col items-center justify-center">
-            <button className="border-b-1 border-gray-200/10 w-full p-2 cursor-pointer text-xl text-gray-200">
+            <button
+              className="border-b-1 border-gray-200/10 w-full p-2 cursor-pointer text-xl text-gray-200"
+              type="button"
+              onClick={() => navigate("/")}
+            >
               Inicio
             </button>
-            <button className="border-b-1 border-gray-200/10 w-full p-2 cursor-pointer text-xl text-gray-200">
-              Fazer Orçamento
+            <button
+              className="border-b-1 border-gray-200/10 w-full p-2 cursor-pointer text-xl text-gray-200"
+              type="button"
+              onClick={() => navigate("/")}
+            >
+              Orçamento
             </button>
-            <button className="border-b-1 border-gray-200/10 w-full p-2 cursor-pointer text-xl text-gray-200">
-              Sair
+            <button
+              className="border-b-1 border-gray-200/10 w-full p-2 cursor-pointer text-xl text-gray-200"
+              type="button"
+              onClick={handleShowAbout}
+            >
+              Sobre
             </button>
           </div>
           <div className="bg-[#111111] w-full border-t-1 border-gray-200/30">

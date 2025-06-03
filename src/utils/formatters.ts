@@ -49,9 +49,11 @@ export const formatPhone = (value: string): string => {
 };
 
 export const formatCoin = (value: string): string => {
+  if (!value.trim()) return "";
+
   const number = Number(value.replace(/\D/g, "")) / 100;
 
-  if (isNaN(number)) return "R$ 0,00";
+  if (isNaN(number)) return "";
 
   return number.toLocaleString("pt-BR", {
     style: "currency",
@@ -62,7 +64,7 @@ export const formatCoin = (value: string): string => {
 export const formatQuantity = (value: string | number): string => {
   const num = typeof value === "string" ? parseInt(value, 10) : value;
 
-  if (isNaN(num)) return "00"; // fallback caso parseInt falhe
+  if (isNaN(num)) return "";
 
   return num < 10 ? `0${num}` : `${num}`;
 };
@@ -72,9 +74,9 @@ export const formatDateBR = (value: string): string => {
   const digits = value.replace(/\D/g, "").slice(0, 8); // Limita a 8 números
 
   const parts = [];
-  if (digits.length >= 1) parts.push(digits.slice(0, 2));         // dia
-  if (digits.length >= 3) parts.push(digits.slice(2, 4));         // mês
-  if (digits.length >= 5) parts.push(digits.slice(4, 8));         // ano
+  if (digits.length >= 1) parts.push(digits.slice(0, 2)); // dia
+  if (digits.length >= 3) parts.push(digits.slice(2, 4)); // mês
+  if (digits.length >= 5) parts.push(digits.slice(4, 8)); // ano
 
   return parts.join("/");
 };

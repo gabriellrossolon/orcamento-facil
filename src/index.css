@@ -5,3 +5,29 @@ body {
   font-family: 'Montserrat';
   background-color: rgb(30, 29, 32);
 }
+
+@media print {
+  body, html {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  /* Forçar background e texto nos elementos principais */
+  .bg-amber-50 {
+    background-color: #fffae8 !important;
+  }
+  .text-gray-900 {
+    color: #1f2937 !important;
+  }
+  .bg-blue-900 {
+    background-color: #1e40af !important;
+  }
+  .text-white {
+    color: white !important;
+  }
+  
+  /* Esconder botão no print */
+  .print\\:hidden {
+    display: none !important;
+  }
+}
