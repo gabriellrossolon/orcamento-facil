@@ -24,12 +24,9 @@
 
 ## 🖼️ Capturas de Tela
 
-*Adicione aqui prints da aplicação e do layout de impressão (Ctrl+P).*
+![screencapture-orcamento-facil-nine-vercel-app-2025-06-03-15_43_33](https://github.com/user-attachments/assets/b4dc9b57-d1ea-4107-ab42-e28f2ca789ec)
 
-## 📄 Licença
-
-Este projeto está licenciado sob a licença MIT.
 
 ---
 
-Desenvolvido com 💙 por [Seu Nome](https://github.com/seu-usuario)
+Desenvolvido com 💙 por [Gabriell Rossolon](https://github.com/gabriellrossolon)
