@@ -155,7 +155,7 @@ const BudgetForm: React.FC<BudgetFormProps> = ({
           />
           <InputField
             placeholder="E-mail do cliente"
-            type="tel"
+            type="email"
             value={clientEmail}
             handleChange={setClientEmail}
           />
