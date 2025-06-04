@@ -2,6 +2,8 @@ import { useState } from "react";
 import { formatCpfOrCnpj, formatPhone } from "../utils/formatters";
 import type { BudgetItem } from "../models/BudgetItem";
 import { formatCoin, formatQuantity, formatDateBR } from "../utils/formatters";
+import { handleExportPDF } from "../utils/pdfExporter";
+import type { RefObject } from "react";
 
 export const useBudgetForm = () => {
   //DADOS EMPRESA
@@ -94,10 +96,14 @@ export const useBudgetForm = () => {
     handleBudgetValidity("");
   };
 
-  const finalizeForm = () => {
+  const finalizeForm = (ref: RefObject<HTMLDivElement | null>) => {
     saveBudgetData();
 
-    window.open("/finalized", "_blank");
+    if (ref.current) {
+      setTimeout(() => {
+        handleExportPDF(ref.current!);
+      }, 500);
+    }
   };
 
   //
@@ -105,7 +111,8 @@ export const useBudgetForm = () => {
   const saveBudgetData = () => {
     const budgetData = getBudgetData();
     localStorage.setItem("budgetData", JSON.stringify(budgetData));
-  }
+    window.dispatchEvent(new Event("budgetDataUpdated"));
+  };
 
   const getBudgetData = () => ({
     company: {

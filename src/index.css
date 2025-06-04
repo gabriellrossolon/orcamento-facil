@@ -31,3 +31,11 @@ body {
     display: none !important;
   }
 }
+
+/* Elementos marcados para esconder no PDF */
+.hide-for-pdf {}
+
+/* Classe adicionada temporariamente só para gerar PDF */
+.hide-for-pdf-active {
+  display: none !important;
+}

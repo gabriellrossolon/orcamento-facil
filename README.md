@@ -1,7 +1,7 @@
 
  🧾 Orçamento Fácil
 
-**Orçamento Fácil** é uma aplicação web leve e eficiente para criação de orçamentos em PDF, utilizando o recurso nativo de impressão do navegador (`window.print()`). Ideal para freelancers, prestadores de serviço e pequenas empresas que precisam gerar orçamentos de forma rápida, bonita e sem complicação.
+**Orçamento Fácil** é uma aplicação web leve e eficiente para criação de orçamentos em PDF, utilizando JSPDF e HTML2CanvasPRO (Uma Fork que tem suporta a Tailwind 4+). Ideal para freelancers, prestadores de serviço e pequenas empresas que precisam gerar orçamentos de forma rápida, bonita e sem complicação.
 
 🔗 **Acesse o deploy:** [orcamento-facil-nine.vercel.app](https://orcamento-facil-nine.vercel.app)
 
@@ -12,6 +12,7 @@
 - Interface moderna e responsiva
 - Separação de páginas com React Router
 - Organização da lógica com custom hooks
+- Criação rápida do orçamento em PDF
 
 ## 🛠️ Tecnologias Utilizadas
 
@@ -19,7 +20,7 @@
 - [TypeScript](https://www.typescriptlang.org/)
 - [React Router](https://reactrouter.com/)
 - [Tailwind CSS](https://tailwindcss.com/)
-- `window.print()` para exportação em PDF (sem bibliotecas externas)
+- JSPDF + HTML2Canvas-PRO
 - Custom Hooks para lógica reutilizável
 
 ## 🖼️ Capturas de Tela

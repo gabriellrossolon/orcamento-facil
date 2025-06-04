@@ -1,8 +1,9 @@
-import React from "react";
 import InputField from "./commons/InputField";
 import ItemCard from "./commons/ItemCard";
 import type { BudgetItem } from "../models/BudgetItem";
-
+import type { RefObject } from "react";
+import FinalizedForm from "./FinalizedForm";
+import { useRef, useEffect, useMemo } from "react";
 
 interface BudgetFormProps {
   companyName: string;
@@ -42,7 +43,7 @@ interface BudgetFormProps {
   handleBudgetValidity: (value: string) => void;
 
   clearForm: () => void;
-  finalizeForm: () => void;
+  finalizeForm: (ref: RefObject<HTMLDivElement>) => void;
 }
 
 const BudgetForm: React.FC<BudgetFormProps> = ({
@@ -85,15 +86,19 @@ const BudgetForm: React.FC<BudgetFormProps> = ({
   clearForm,
   finalizeForm,
 }) => {
+  const finalizedFormRef = useRef<HTMLDivElement>(null);
+
+
+
   return (
-    <form
-      className="flex flex-col items-center justify-center w-full gap-6 shadow-xl rounded-xl shadow-black/20 p-8"
-    >
-      <h2 className="text-gray-200 text-3xl font-semibold mb-6">
+    <form className="flex flex-col items-center justify-center w-full gap-6 shadow-xl rounded-xl shadow-black/20 md:p-8 p-1">
+      <h2 className="text-gray-200 text-3xl font-semibold mb-6 text-center md:text-start">
         Preencha todos os Campos
       </h2>
-      <div className="flex md:flex-row flex-col items-center justify-center gap-8 w-full"> 
-        <div className="flex flex-col items-start justify-center w-full gap-2"> {/* Dados da Empresa */}
+      <div className="flex md:flex-row flex-col items-center justify-center gap-8 w-full">
+        <div className="flex flex-col items-start justify-center w-full gap-2">
+          {" "}
+          {/* Dados da Empresa */}
           <h3 className="text-gray-200 text-2xl">Seus dados:</h3>
           <InputField
             placeholder="Nome da empresa"
@@ -126,7 +131,9 @@ const BudgetForm: React.FC<BudgetFormProps> = ({
             handleChange={setCompanyAdress}
           />
         </div>
-        <div className="flex flex-col items-start justify-center w-full gap-2"> {/* Dados do Cliente */}
+        <div className="flex flex-col items-start justify-center w-full gap-2">
+          {" "}
+          {/* Dados do Cliente */}
           <h3 className="text-gray-200 text-2xl">Dados do cliente:</h3>
           <InputField
             placeholder="Nome do cliente"
@@ -160,7 +167,9 @@ const BudgetForm: React.FC<BudgetFormProps> = ({
           />
         </div>
       </div>
-      <div className="w-full flex flex-col items-start justify-center gap-2 rounded-md p-4 shadow-md shadow-black/40"> {/* Adicionar Itens */}
+      <div className="w-full flex flex-col items-start justify-center gap-2 rounded-md p-4 shadow-md shadow-black/40">
+        {" "}
+        {/* Adicionar Itens */}
         <h3 className="text-gray-200 text-2xl">Adicionar itens:</h3>
         <div className="w-full flex flex-col items-center justify-center gap-2">
           <InputField
@@ -188,22 +197,28 @@ const BudgetForm: React.FC<BudgetFormProps> = ({
         <button
           className="text-gray-200 px-8 py-1 border border-gray-100/20 rounded-full cursor-pointer bg-[#111111] hover:bg-[#222222] transition-colors duration-300"
           type="button"
-          onClick={() => handleBudgetItems(budgetItemName, budgetItemQuantity, budgetItemPrice)}
+          onClick={() =>
+            handleBudgetItems(
+              budgetItemName,
+              budgetItemQuantity,
+              budgetItemPrice
+            )
+          }
         >
           Adicionar
         </button>
         <div className="flex flex-col items-start justify-center border-t-1 border-gray-100/10 w-full py-2 gap-1">
-          <div className="grid grid-cols-6 gap-4 p-2 border border-gray-100/20 rounded-xl w-full">
-            <p className="py-1 px-2 text-gray-200 col-span-3 border-x-1 border-gray-100/20">
+          <div className="md:grid grid-cols-6 gap-1 md:gap-4 p-2 border border-gray-100/20 rounded-xl w-full hidden">
+            <p className="py-1 px-2 text-gray-200 col-span-2 md:col-span-3 md:border-x-1 border-gray-100/20 text-sm md:text-md">
               Item
             </p>
-            <p className="py-1 px-2 text-gray-200 col-span-1 border-x-1 border-gray-100/20 text-center">
+            <p className="py-1 px-2 text-gray-200 col-span-1 md:col-span-1 md:border-x-1 border-gray-100/20 text-center text-sm md:text-md">
               Quantidade
             </p>
-            <p className="py-1 px-2 text-gray-200 col-span-1 border-x-1 border-gray-100/20 text-center">
-              Valor
+            <p className="py-1 px-2 text-gray-200 col-span-2 md:col-span-1 md:border-x-1 border-gray-100/20 text-center text-sm md:text-md">
+              Valor (p/ Unid.)
             </p>
-            <p className="py-1 px-2 text-gray-200 col-span-1 border-x-1 border-gray-100/20 text-center">
+            <p className="py-1 px-2 text-gray-200 col-span-1 md:col-span-1 md:border-x-1 border-gray-100/20 text-center text-sm md:text-md">
               Excluir?
             </p>
           </div>
@@ -220,37 +235,39 @@ const BudgetForm: React.FC<BudgetFormProps> = ({
           </div>
         </div>
       </div>
-      <div className="w-full flex flex-row items-baseline-last justify-between">
-        <label className="flex flex-col items-start justify-center w-full">
+      <div className="md:w-full flex md:flex-row flex-col md:items-baseline-last justify-between gap-2">
+        <label className="flex flex-col md:items-start items-center justify-center md:w-full">
           <span className="text-gray-200 text-xl">Validade do Orçamento:</span>
-          <input 
-            type="text" 
+          <input
+            type="text"
             value={budgetValidity}
             onChange={(e) => handleBudgetValidity(e.target.value)}
             placeholder="dd/mm/yyyy"
-            className="border-1 border-gray-100/20 rounded-md px-2 py-1 w-full text-gray-200"/>
+            className="border-1 border-gray-100/20 rounded-md px-2 py-1 w-full text-gray-200 text-center md:text-start"
+          />
         </label>
-        <div className="flex items-center justify-end gap-4 w-full">
-          <button 
+        <div className="flex items-center md:justify-end justify-center gap-4 w-full">
+          <button
             className="border border-gray-100/20 px-2 py-1 rounded-md text-gray-200 font-semibold text-xl bg-[#111111]
             cursor-pointer hover:bg-[#222222] transition-colors duration-300
             "
             type="button"
-            onClick={finalizeForm}
-            >
-              Gerar PDF
+            onClick={() => finalizeForm(finalizedFormRef)}
+          >
+            Gerar PDF
           </button>
-          <button 
+          <button
             className="border border-gray-100/20 px-2 py-1 rounded-md text-gray-200 font-semibold text-xl bg-[#111111]
             cursor-pointer hover:bg-[#222222] transition-colors duration-300
             "
             type="button"
             onClick={clearForm}
-            >
-              Limpar Campos
+          >
+            Limpar Campos
           </button>
         </div>
       </div>
+      <FinalizedForm ref={finalizedFormRef}/>
     </form>
   );
 };
