@@ -3,7 +3,7 @@ import ItemCard from "./commons/ItemCard";
 import type { BudgetItem } from "../models/BudgetItem";
 import type { RefObject } from "react";
 import FinalizedForm from "./FinalizedForm";
-import { useRef, useEffect, useMemo } from "react";
+import { useRef } from "react";
 
 interface BudgetFormProps {
   companyName: string;
@@ -252,7 +252,7 @@ const BudgetForm: React.FC<BudgetFormProps> = ({
             cursor-pointer hover:bg-[#222222] transition-colors duration-300
             "
             type="button"
-            onClick={() => finalizeForm(finalizedFormRef)}
+            onClick={() => finalizeForm(finalizedFormRef as React.RefObject<HTMLDivElement>)}
           >
             Gerar PDF
           </button>

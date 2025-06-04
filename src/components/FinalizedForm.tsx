@@ -8,7 +8,7 @@ interface BudgetItem {
 
 interface FinalizedFormProps {}
 
-const FinalizedForm = forwardRef<HTMLDivElement, FinalizedFormProps>((props, ref) => {
+const FinalizedForm = forwardRef<HTMLDivElement, FinalizedFormProps>((_, ref) => {
     const [savedData, setSavedData] = useState(() => {
       const data = localStorage.getItem("budgetData");
       return data ? JSON.parse(data) : null;
