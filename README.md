@@ -1,5 +1,4 @@
-
- 🧾 Orçamento Fácil
+# 🧾 Orçamento Fácil
 
 **Orçamento Fácil** é uma aplicação web leve e eficiente para criação de orçamentos em PDF, utilizando JSPDF e HTML2CanvasPRO (Uma Fork que tem suporta a Tailwind 4+). Ideal para freelancers, prestadores de serviço e pequenas empresas que precisam gerar orçamentos de forma rápida, bonita e sem complicação.
 
